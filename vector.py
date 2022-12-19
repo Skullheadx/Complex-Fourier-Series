@@ -1,24 +1,30 @@
-from math import cos, sin,hypot, asin
+from math import cos, sin, hypot, atan2
 
 
 class Vector:
 
-    def __init__(self, x, y, frequency=0):
-        self.x = x
-        self.y = y
-        self.length = hypot(self.x,self.y)#sqrt(pow(self.x, 2) + pow(self.y, 2))
-        self.angle = asin(self.y/self.length)
+    def __init__(self, magnitude, direction, frequency=1):
         self.frequency = frequency
+        self.length = magnitude
+        self.angle = direction
 
     def __add__(self, other):
-        return Vector(self.x + other.x, self.y + other.y)
+        x = self.x_component() + other.x_component()
+        y = self.y_component() + other.y_component()
+        return Vector(hypot(x, y), atan2(y, x), self.frequency)
 
     def rotate(self, rad):
-        self.angle += rad
-        self.x, self.y = self.length * cos(self.angle), self.length * sin(self.angle)
+        self.angle += rad * self.frequency
 
-    def pair(self):
-        return (self.x,self.y)
+    def x_component(self):
+        return self.length * cos(self.angle)
+
+    def y_component(self):
+        return self.length * sin(self.angle)
+
+    def components(self):
+        return self.x_component(), self.y_component()
+
 
 class VectorManager:
     def __init__(self, filename):
@@ -33,9 +39,6 @@ class VectorManager:
     def update(self, delta):
         end = Vector(0, 0)
         for vector in self.vectors:
-            vector.rotate(delta * vector.frequency)
+            vector.rotate(delta)
             end += vector
-        if end not in self.buffer:
-            self.buffer.append(end)
-        # print(end.pair())
-
+        self.buffer.append(end)
