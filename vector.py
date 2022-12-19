@@ -16,7 +16,7 @@ class Vector:
 
 class VectorManager:
     update_time = 0
-    buffer_size = 5000
+    buffer_size = 50000
     def __init__(self, filename):
         with open(filename,"r") as f:
             contents = f.read().split('\n')
