@@ -1,4 +1,5 @@
 from math import cos, sin, hypot, atan2
+from utils import to_components
 
 
 class Vector:
@@ -30,8 +31,13 @@ class VectorManager:
     def __init__(self, filename):
         with open(filename, "r") as f:
             contents = f.read().split('\n')
+            mode = contents[0]
             contents = contents[1:]
         contents = [tuple(map(int, i.split(" "))) for i in contents]
+        if mode == "polar":
+            for i, val in enumerate(contents):
+                x,y =to_components(val[0],val[1])
+                contents[i] = (x,y,val[2])
         self.vectors = [Vector(i, j, k) for i, j, k in contents]
 
         self.buffer = []
