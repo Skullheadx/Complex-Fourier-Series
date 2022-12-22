@@ -16,4 +16,4 @@ def generate(polar=True):
 
 for i in range(10):
     with open(f"tests/test{i + 1}.txt", "w") as f:
-        f.write(generate(polar=True))
+        f.write(generate(polar=False))

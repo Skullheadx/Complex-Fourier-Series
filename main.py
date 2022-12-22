@@ -9,7 +9,7 @@ offset = Vector(m, d)
 clock = pygame.time.Clock()
 delta = 0
 is_running = True
-scene = VectorManager("tests/test4.txt")
+scene = VectorManager("tests/test1.txt")
 while is_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
