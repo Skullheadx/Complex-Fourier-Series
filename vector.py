@@ -1,5 +1,7 @@
-from math import cos, sin, hypot, atan2, pi,tan
+from math import cos, sin, hypot, atan2, pi
+
 from utils import to_components
+
 
 class Vector:
 
@@ -29,7 +31,7 @@ class Vector:
 class VectorManager:
     def __init__(self, filename):
         self.time = 0
-        self.target =1
+        self.target = 1
         with open(filename, "r") as f:
             contents = f.read().split('\n')
             mode = contents[0]
@@ -37,8 +39,8 @@ class VectorManager:
         contents = [tuple(map(float, i.split(" "))) for i in contents]
         if mode == "polar":
             for i, j in enumerate(contents):
-                x,y = to_components(j[0], j[1])
-                contents[i] = (x,y,j[2])
+                x, y = to_components(j[0], j[1])
+                contents[i] = (x, y, j[2])
                 self.target *= j[2]
 
         self.vectors = [Vector(i, j, k) for i, j, k in contents]
