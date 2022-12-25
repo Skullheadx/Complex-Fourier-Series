@@ -1,5 +1,5 @@
 import math
-
+import numpy as np
 from utils import to_polar
 
 
@@ -35,4 +35,4 @@ class Equation:
         n = self.period / sample_size
         for i in range(sample_size):
             buffer.append(self.evaluate(i * n))
-        return buffer
+        return np.array(buffer)
