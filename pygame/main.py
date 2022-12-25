@@ -11,8 +11,8 @@ clock = pygame.time.Clock()
 delta = 0
 t = 0
 is_running = True
-scene = VectorManager("test.txt")
-eqn = Equation(filename='test.txt')
+scene = VectorManager("../test.txt")
+eqn = Equation(filename='../test.txt')
 while is_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

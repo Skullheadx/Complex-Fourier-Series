@@ -1,11 +1,10 @@
-from setup import *
-
+import pygame
 
 def draw():
-    screen = pygame.display.set_mode((720, 720))
+    WIDTH, HEIGHT = 720,720
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
     clock = pygame.time.Clock()
-    delta = 0
     is_running = True
 
     with open("output.txt", "r") as f:
@@ -18,8 +17,8 @@ def draw():
             if event.type == pygame.QUIT:
                 is_running = False
 
-        screen.fill(WHITE)
-        pygame.draw.lines(screen, BLACK, True, buffer, 3)
+        screen.fill((255,255,255))
+        pygame.draw.lines(screen, (0,0,0), True, buffer, 3)
 
         pygame.display.flip()
-        delta = clock.tick(60)
+        clock.tick(60)
