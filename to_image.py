@@ -1,13 +1,13 @@
 import pygame
 
-def draw(population):
+def draw():
     WIDTH, HEIGHT = 720,720
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
     clock = pygame.time.Clock()
     is_running = True
 
-    with open("output.txt", "r") as f:
+    with open("generations/gen30 buffer.txt", "r") as f:
         contents = f.read().split("\n")
     buffer = [tuple(map(float, i.split(" "))) for i in contents]
     for i in range(len(buffer)):
@@ -22,3 +22,5 @@ def draw(population):
 
         pygame.display.flip()
         clock.tick(60)
+
+draw()

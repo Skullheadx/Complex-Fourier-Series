@@ -36,7 +36,7 @@ class Equation:
     def write_polar_to_file(self, path, filename):
         with open(os.path.join(path, filename), "w") as f:
             output = ""
-            for i in self.buffer:
-                output += str(i) + "\n"
+            for magnitude, direction, frequency in self.contents:
+                output += f"{magnitude} {direction} {frequency}\n"
             output = output[:-1]
             f.write(output)

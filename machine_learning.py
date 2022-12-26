@@ -1,5 +1,7 @@
-from equation import Equation
-from to_image import draw
-from match import image_to_list, match
+from population import Population
+IMAGE_PATH = "images/circle.png"
 
-image = image_to_list("images/circle.png")
+p = Population(IMAGE_PATH)
+
+for i in range(1001):
+    p.get_next_generation()

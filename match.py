@@ -8,20 +8,22 @@ BACKGROUND = (255, 255, 255)
 def image_to_list(path):
     output = []
     image = cv2.imread(path)
+    width, height, _ = image.shape
     for i, j in np.ndenumerate(image):
         x, y, _ = i
         if tuple(image[x, y]) != BACKGROUND:
-            output.append((y, x))
+            output.append((y -height/2, x-width/2))
     return np.array(output)
 
-# NEGATIVE values are expected. since every value not found in target and is therefore wrong.
-# should use cache, though I am not sure how to implement
+
 def match(target, arr):
     right = 0
-    wrong = 0
     for i in arr:
-        if i in target:
-            right += 1
-        else:
-            wrong += 1
-    return (right-wrong) / target.size
+        x1,y1 = i
+        for j in target:
+            x2,y2 = j
+            if pow(x2-x1,2) + pow(y2-y1,2) < 225: # 15 ^2
+                right += 1
+
+    # print(right/arr.size, arr)
+    return (right) / arr.size
