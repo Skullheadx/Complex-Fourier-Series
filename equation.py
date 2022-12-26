@@ -1,25 +1,13 @@
 import math
 import numpy as np
 from utils import to_polar
+import os
 
 
 class Equation:
-    def __init__(self, contents=None, filename=None):
-        self.period = 1
-
-        if contents is None or filename is not None:
-            with open("test.txt", "r") as f:
-                self.contents = f.read().split('\n')
-                mode = self.contents[0]
-                self.contents = self.contents[1:]
-            self.contents = [tuple(map(float, i.split(" "))) for i in self.contents]
-            if mode == "components":
-                for i, val in enumerate(self.contents):
-                    x, y = to_polar(val[0], val[1])
-                    self.contents[i] = (x, y, val[2])
-                    self.period *= val[2]
-        else:
-            self.contents = contents
+    def __init__(self, contents):
+        self.contents = contents
+        self.buffer = []
 
     def evaluate(self, time):
         x = 0
@@ -31,8 +19,24 @@ class Equation:
         return x, y
 
     def get_buffer(self, sample_size):
-        buffer = []
-        n = self.period / sample_size
+        self.buffer = []
+        n = 1 / sample_size
         for i in range(sample_size):
-            buffer.append(self.evaluate(i * n))
-        return np.array(buffer)
+            self.buffer.append(self.evaluate(i * n))
+        return np.array(self.buffer)
+
+    def write_buffer_to_file(self, path, filename):
+        with open(os.path.join(path, filename), "w") as f:
+            output = ""
+            for x, y in self.buffer:
+                output += f"{x} {y}\n"
+            output = output[:-1]
+            f.write(output)
+
+    def write_polar_to_file(self, path, filename):
+        with open(os.path.join(path, filename), "w") as f:
+            output = ""
+            for i in self.buffer:
+                output += str(i) + "\n"
+            output = output[:-1]
+            f.write(output)

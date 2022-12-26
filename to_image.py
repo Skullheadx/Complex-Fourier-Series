@@ -1,6 +1,6 @@
 import pygame
 
-def draw():
+def draw(population):
     WIDTH, HEIGHT = 720,720
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
