@@ -1,22 +1,23 @@
 from setup import *
-from vector import VectorManager
+from to_points import image_to_points
+from order_points import order
+from inverse_fft import IFFT
+from draw import draw
+from series import Series
 
 
-screen = pygame.display.set_mode((720, 720))
+def main():
+    print("Complex Fourier Transforms")
 
-clock = pygame.time.Clock()
-delta = 0
-is_running = True
-scene = VectorManager("tests/test5.txt")
-while is_running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            is_running = False
+    print(f"Converting {FILENAME} to points")
+    points = image_to_points(FILEPATH)
+    print("Ordering points")
+    points = order(points)
+    print("Inverse FFT")
+    waves = IFFT(points)
+    print("Drawing")
+    draw(Series(waves))
 
-    scene.update(delta/1000*50)
 
-    screen.fill(WHITE)
-    scene.draw(screen)
-
-    pygame.display.flip()
-    delta = clock.tick()
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,3 @@
+order points so that we only go through once
+inverse fft
+draw
