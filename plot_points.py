@@ -1,4 +1,5 @@
 from svg_to_path import Reader
+import matplotlib.pyplot as plt
 
 class svgToPath():
     
@@ -22,6 +23,11 @@ class svgToPath():
             [f.writelines(str(i) + "\n") for i in self.reader.tracedPath]
             f.close()
 
+    def plotPoints(self):
+        x, y = zip(*self.reader.tracedPath)
+        plt.scatter(x, y).axes.invert_yaxis()
+        plt.show()
+
 
 class readFromPath():
     def __init__(self, file):
@@ -32,3 +38,7 @@ class readFromPath():
             temp = f.readline()[1:-2].split(",")
             self.pathCoords.append([float(temp[0]), float(temp[1])])
         f.close()
+
+# test = svgToPath('./svgs/test_c.svg')
+# test.convert()
+# test.plotPoints()
